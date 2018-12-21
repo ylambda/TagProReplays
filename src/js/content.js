@@ -24,8 +24,10 @@ const Table = require('modules/table');
 const Upload = require('modules/upload');
 const Search = require('modules/search');
 
+const url = new URL(document.URL);
 // Get URL for setting cookies, assumes a domain of *.hostname.tld:*/etc
 var cookieDomain = document.URL.match(/https?:\/\/[^\/]+?(\.[^\/.]+?\.[^\/.]+?)(?::\d+)?\//)[1];
+
 
 // Moment calendar customization for date display.
 moment.updateLocale('en', {
@@ -783,6 +785,7 @@ function injectStyleSheet(path) {
 }
 
 // if we're on the main tagpro server screen, run the createReplayPageButton function
+var
 if ($('#userscript-home').length !== 0) {
   // make the body scrollable
   $('body')[0].style.overflowY = "scroll"
@@ -792,7 +795,7 @@ if ($('#userscript-home').length !== 0) {
   // Include custom bootstrap.css scoped to #tpr-container
   injectStyleSheet("css/bootstrap.css");
   injectStyleSheet("css/menu.css");
-} else if (document.URL.search(/\.\w+:/) >= 0
-        || document.URL.endsWith('/game')) {
+} else if (url.port !== ""
+        || url.pathname === "/game") {
   injectScript('js/recording.js');
 }
